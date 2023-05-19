@@ -1,28 +1,33 @@
 package com.jun.hsite.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Builder
 @Entity
 public class Comment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment_no;
+    private Long id;
+    private String content;
+    private String writer;
+    private String createdDate;
+    private String modifiedDate;
 
-    private Long board_no;
+    @ManyToOne
+    private Board board;
 
-    private String comment_text;
+    public void update(String content) {
+        this.content = content;
+    }
 
-    private String comment_author;
 
 }

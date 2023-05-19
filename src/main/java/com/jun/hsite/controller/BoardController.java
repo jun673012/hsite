@@ -1,6 +1,6 @@
 package com.jun.hsite.controller;
 
-import com.jun.hsite.domain.Board;
+import com.jun.hsite.dto.BoardDto;
 import com.jun.hsite.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,13 +24,13 @@ public class BoardController {
     }
 
     @PostMapping("/board")
-    public ResponseEntity<?> postBoard(@RequestBody Board board) {
-        return new ResponseEntity<>(boardService.postBoard(board), HttpStatus.CREATED);
+    public ResponseEntity<?> postBoard(@RequestBody BoardDto.Request dto) {
+        return new ResponseEntity<>(boardService.postBoard(dto), HttpStatus.CREATED);
     }
 
     @PutMapping("/board/{id}")
-    public ResponseEntity<?> updateBoard(@PathVariable Long id, @RequestBody Board board) {
-        return new ResponseEntity<>(boardService.updateBoard(id, board), HttpStatus.OK);
+    public ResponseEntity<?> updateBoard(@PathVariable Long id, @RequestBody BoardDto.Request dto) {
+        return new ResponseEntity<>(boardService.updateBoard(id, dto), HttpStatus.OK);
     }
 
     @DeleteMapping("/board/{id}")

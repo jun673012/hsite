@@ -1,6 +1,6 @@
 package com.jun.hsite.controller;
 
-import com.jun.hsite.domain.Comment;
+import com.jun.hsite.dto.CommentDto;
 import com.jun.hsite.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,28 +12,25 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
     private final CommentService commentService;
 
-    @GetMapping("/comment/{board_no}")
-    public ResponseEntity<?> getComment(@PathVariable("board_no") Long comment_no) {
-        return new ResponseEntity<>(commentService.getComment(comment_no), HttpStatus.OK);
+    @PostMapping("/board/{id}/comment")
+    public ResponseEntity<?> postComment(@PathVariable("id") Long id, @RequestBody CommentDto.Request dto) {
+        return new ResponseEntity<>(commentService.postComment(id, dto), HttpStatus.CREATED);
     }
 
-    @PostMapping("/comment")
-    public ResponseEntity<?> postComment(@RequestBody Comment comment) {
-        return new ResponseEntity<>(commentService.postComment(comment), HttpStatus.CREATED);
+    @GetMapping("/board/{id}/comment")
+    public ResponseEntity<?> getAllComment(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(commentService.getAllComment(id), HttpStatus.OK);
     }
 
-    @PutMapping("/comment/{comment_no}")
-    public ResponseEntity<?> updateComment(@PathVariable Long comment_no, @RequestBody Comment comment) {
-        return new ResponseEntity<>(commentService.updateComment(comment_no, comment), HttpStatus.OK);
+    @PutMapping("/board/{id}/comment/{id}")
+    public ResponseEntity<?> updateComment(@PathVariable("id") Long id, @RequestBody CommentDto.Request dto) {
+        return new ResponseEntity<>(commentService.updateComment(id, dto), HttpStatus.OK);
     }
 
-    @DeleteMapping("/comment/{comment_no}")
-    public ResponseEntity<?> deleteComment(@PathVariable("comment_no") Long comment_no) {
-        commentService.deleteComment(comment_no);
+    @DeleteMapping("/board/{id}/comment/{id}")
+    public ResponseEntity<?> deleteComment(@PathVariable("id") Long id) {
+        commentService.deleteComment(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
 
 }

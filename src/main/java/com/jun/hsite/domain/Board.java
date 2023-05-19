@@ -1,30 +1,36 @@
 package com.jun.hsite.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
-@Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-public class Board {
+public class Board extends Time{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 100, nullable = false)
     private String title;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    private String author;
+    @Column(length = 10, nullable = false)
+    private String writer;
 
-    //private String createdDate;
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("id asc")
+    private List<Comment> comment;
 
-    //private String modifiedDate;
-
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

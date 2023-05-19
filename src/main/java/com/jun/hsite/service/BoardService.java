@@ -1,12 +1,14 @@
 package com.jun.hsite.service;
 
 import com.jun.hsite.domain.Board;
+import com.jun.hsite.dto.BoardDto;
 import com.jun.hsite.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -14,32 +16,27 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional(readOnly = true)
-    public List<Board> getAllBoard() {
+    public List<BoardDto.Response> getAllBoard() {
         List<Board> board = boardRepository.findAll();
-        return board;
+        return board.stream().map(BoardDto.Response::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public Board getBoard(Long id) {
+    public BoardDto.Response getBoard(Long id) {
         Board board = boardRepository.findById(id).get();
-        return board;
+        return new BoardDto.Response(board);
     }
 
     @Transactional
-    public Board postBoard(Board board) {
-        return boardRepository.save(board);
-
+    public Long postBoard(BoardDto.Request dto) {
+        return boardRepository.save(dto.toEntity()).getId();
     }
 
     @Transactional
-    public Board updateBoard(Long id, Board board) {
-        Board newBoard = boardRepository.findById(id).get();
-        newBoard.setTitle(board.getTitle());
-        newBoard.setContent(board.getContent());
-        newBoard.setAuthor(board.getAuthor());
-        //newBoard.setCreatedDate(board.getCreatedDate());
-        //newBoard.setModifiedDate(board.getModifiedDate());
-        return newBoard;
+    public Long updateBoard(Long id, BoardDto.Request dto) {
+        Board board = boardRepository.findById(id).get();
+        board.update(dto.getTitle(), dto.getContent());
+        return id;
     }
 
     @Transactional
