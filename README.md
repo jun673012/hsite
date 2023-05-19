@@ -1,5 +1,5 @@
 # hsite
-hsite is a site with normal fuction for spring practice
+hsite is a community site for spring practice
 <br></br>
 
 
