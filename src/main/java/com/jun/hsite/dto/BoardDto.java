@@ -18,6 +18,12 @@ public class BoardDto {
         private String writer;
         private String createdDate;
         private String modifiedDate;
+        private int viewCount;
+
+        public Request(String title, String content) {
+            this.title = title;
+            this.content = content;
+        }
 
         public Board toEntity() {
             Board board = Board.builder()
@@ -25,6 +31,7 @@ public class BoardDto {
                     .title(title)
                     .content(content)
                     .writer(writer)
+                    .viewCount(0)
                     .build();
             return board;
         }
@@ -38,6 +45,7 @@ public class BoardDto {
         private String writer;
         private String createdDate;
         private String modifiedDate;
+        private int viewCount;
 
         public Response(Board board) {
             this.id = board.getId();
@@ -46,6 +54,7 @@ public class BoardDto {
             this.writer = board.getWriter();
             this.createdDate = board.getCreatedDate();
             this.modifiedDate = board.getModifiedDate();
+            this.viewCount = board.getViewCount();
         }
     }
 

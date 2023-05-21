@@ -1,6 +1,7 @@
 package com.jun.hsite.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -29,8 +30,12 @@ public class Board extends Time{
     @OrderBy("id asc")
     private List<Comment> comment;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int viewCount;
+
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
     }
+
 }

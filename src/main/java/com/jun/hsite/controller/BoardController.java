@@ -14,25 +14,25 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @Operation(summary = "View all registered board", description = "등록한 모든 글을 본다")
+    @Operation(summary = "View all registered board", description = "등록한 모든 글을 조회합니다")
     @GetMapping("/board")
     public ResponseEntity<?> getAllBoard() {
         return new ResponseEntity<>(boardService.getAllBoard(), HttpStatus.OK);
     }
 
-    @Operation(summary = "View registered the board", description = "등록한 글을 본다")
+    @Operation(summary = "View registered the board", description = "등록한 글을 조회합니다")
     @GetMapping("/board/{id}")
     public ResponseEntity<?> getBoard(@PathVariable("id") Long id) {
         return new ResponseEntity<>(boardService.getBoard(id), HttpStatus.OK);
     }
 
-    @Operation(summary = "Register the board", description = "글을 등록한다")
+    @Operation(summary = "Register the board", description = "글을 등록합니다")
     @PostMapping("/board")
     public ResponseEntity<?> postBoard(@RequestBody BoardDto.Request dto) {
         return new ResponseEntity<>(boardService.postBoard(dto), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Modify the board", description = "글을 수정한다")
+    @Operation(summary = "Modify the board", description = "글을 수정합니다")
     @PutMapping("/board/{id}")
     public ResponseEntity<?> updateBoard(@PathVariable Long id, @RequestBody BoardDto.Request dto) {
         return new ResponseEntity<>(boardService.updateBoard(id, dto), HttpStatus.OK);
