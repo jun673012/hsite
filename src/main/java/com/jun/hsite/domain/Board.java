@@ -30,8 +30,8 @@ public class Board extends Time{
     @OrderBy("id asc")
     private List<Comment> comment;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
-    private int viewCount;
+    @Column(nullable = false)
+    private Long viewCount;
 
     public void update(String title, String content) {
         this.title = title;

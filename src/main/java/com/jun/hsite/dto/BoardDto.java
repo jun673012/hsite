@@ -18,7 +18,7 @@ public class BoardDto {
         private String writer;
         private String createdDate;
         private String modifiedDate;
-        private int viewCount;
+        private Long viewCount;
 
         public Request(String title, String content) {
             this.title = title;
@@ -31,7 +31,7 @@ public class BoardDto {
                     .title(title)
                     .content(content)
                     .writer(writer)
-                    .viewCount(0)
+                    .viewCount(0l)
                     .build();
             return board;
         }
@@ -45,7 +45,7 @@ public class BoardDto {
         private String writer;
         private String createdDate;
         private String modifiedDate;
-        private int viewCount;
+        private Long viewCount;
 
         public Response(Board board) {
             this.id = board.getId();
